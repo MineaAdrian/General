@@ -73,3 +73,4 @@ C:\Work\C#\E-Commerce App ASP.NET Core MVC\Bulky\BulkyWeb\bin\Debug\net7.0\runti
 C:\Work\C#\E-Commerce App ASP.NET Core MVC\Bulky\BulkyWeb\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Work\C#\E-Commerce App ASP.NET Core MVC\Bulky\BulkyWeb\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Work\C#\E-Commerce App ASP.NET Core MVC\Bulky\BulkyWeb\obj\Debug\net7.0\BulkyWeb.csproj.CopyComplete
+C:\Work\C#\E-Commerce App ASP.NET Core MVC\Bulky\BulkyWeb\bin\Debug\net7.0\libman.json
