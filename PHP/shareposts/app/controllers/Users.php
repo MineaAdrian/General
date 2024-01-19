@@ -67,9 +67,10 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //Register User
-                if ($this->userModel->register($data)){
+                if ($this->userModel->register($data)) {
+                    flash('register_success', 'You are registered and can log in');
                     redirect('/users/login');
-                }else{
+                } else {
                     die('Something went wrong!');
                 }
             } else {
@@ -95,8 +96,7 @@ class Users extends Controller
         }
     }
 
-    public
-    function login()
+    public function login()
     {
         //check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -124,10 +124,27 @@ class Users extends Controller
                 $data['password_error'] = 'Password length must be greater than 6!';
             }
 
+            //Check for user/email
+            if ($this->userModel->findUserByEmail($data['email'])) {
+                //User found
+            } else {
+                //User not found
+                $data['email_error'] = 'No user found';
+            }
+
             //Make sure errors are empty
             if (empty($data['email_error']) && empty($data['password_error'])) {
                 //Validated
-                die('Success');
+                //Check and set login user
+                $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+
+                if ($loggedInUser) {
+                    //Create Session variables
+                    $this->createUserSession($loggedInUser);
+                } else {
+                    $data['password_error'] = 'Password incorrect';
+                    $this->view('users/login', $data);
+                }
             } else {
                 //Load view with errors
                 $this->view('users/login', $data);
@@ -144,6 +161,32 @@ class Users extends Controller
 
             //Load view
             $this->view('users/login', $data);
+        }
+    }
+
+    public function createUserSession($loggedInUser)
+    {
+        $_SESSION['user_id'] = $loggedInUser->id;
+        $_SESSION['user_email'] = $loggedInUser->email;
+        $_SESSION['user_name'] = $loggedInUser->name;
+        redirect('/pages/index');
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_name']);
+        session_destroy();
+        redirect('/users/login');
+    }
+
+    public function isLoggedIn()
+    {
+        if (isset($_SESSION['user_id'])) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

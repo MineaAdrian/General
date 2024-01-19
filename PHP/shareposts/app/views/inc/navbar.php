@@ -16,16 +16,25 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page"
-                       href="<?php echo URLROOT; ?>/users/register">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>/users/login">Log In</a>
-                </li>
-            </ul>
+                <?php if (isset($_SESSION['user_id'])) : ?>
 
-            <form class="d-flex" role="search">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page"
+                           href="<?php echo URLROOT; ?>/users/logout">Logout</a>
+                    </li>
+
+                <?php else : ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page"
+                           href="<?php echo URLROOT; ?>/users/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT; ?>/users/login">Log In</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <form class="d-flex" role="search" style="margin: auto 2% auto 2%">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
