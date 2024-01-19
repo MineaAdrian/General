@@ -4,7 +4,7 @@ class Users extends Controller
 {
     public function __construct()
     {
-
+        $this->userModel = $this->model('User');
     }
 
     public function register()
@@ -30,27 +30,32 @@ class Users extends Controller
 
             //Validate Email
             if (empty($data['email'])) {
-                $data['email_error'] = 'Please enter the email.';
+                $data['email_error'] = 'Please enter the email!';
+            } else {
+                //Check email in db
+                if ($this->userModel->findUserByEmail($data['email'])) {
+                    $data['email_error'] = 'Email is already taken!';
+                }
             }
 
             //Validate Name
             if (empty($data['name'])) {
-                $data['name_error'] = 'Please enter the email.';
+                $data['name_error'] = 'Please enter the name!';
             }
 
             //Validate password
             if (empty($data['password'])) {
-                $data['password_error'] = 'Please enter the email.';
+                $data['password_error'] = 'Please enter the password!';
             } elseif (strlen($data['password']) < 6) {
                 $data['password_error'] = 'Password length must be greater than 6!';
             }
 
             //Validate confirm password
             if (empty($data['confirm_password'])) {
-                $data['confirm_password_error'] = 'Please confirm password';
+                $data['confirm_password_error'] = 'Please confirm password!';
             } else {
                 if ($data['password'] != $data['confirm_password']) {
-                    $data['confirm_password_error'] = 'Passwords do not match';
+                    $data['confirm_password_error'] = 'Passwords do not match!';
                 }
             }
             //Make sure errors are empty
@@ -100,12 +105,12 @@ class Users extends Controller
 
             //Validate Email
             if (empty($data['email'])) {
-                $data['email_error'] = 'Please enter the email.';
+                $data['email_error'] = 'Please enter the email!';
             }
 
             //Validate password
             if (empty($data['password'])) {
-                $data['password_error'] = 'Please enter the email.';
+                $data['password_error'] = 'Please enter the password!';
             } elseif (strlen($data['password']) < 6) {
                 $data['password_error'] = 'Password length must be greater than 6!';
             }

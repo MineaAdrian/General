@@ -52,7 +52,7 @@ class Database
                 case is_bool($value):
                     $type = PDO::PARAM_BOOL;
                     break;
-                case is_null():
+                case is_null($value):
                     $type = PDO::PARAM_NULL;
                     break;
                 default:
@@ -66,19 +66,22 @@ class Database
     }
 
     //Execute the prepared statement
-    public function execute()
-    {
-        return $this->stmt->execute();
-    }
 
-    //Get results as array of objects
     public function resultSet()
     {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    //Get results as array of objects
+
+    public function execute()
+    {
+        return $this->stmt->execute();
+    }
+
     //Get single record as object
+
     public function single()
     {
         $this->execute();
