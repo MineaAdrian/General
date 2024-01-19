@@ -9,28 +9,28 @@
                 <div class="form-group">
                     <label for="name" class="form-label">Name: <sup>*</sup></label>
                     <input type="text"
-                           class="form-control form-control-lg <?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>"
+                           class="form-control form-control-lg <?php echo (!empty($data['name_error'])) ? 'is-invalid' : ''; ?>"
                            value="<?php if (!empty($data)) echo $data['name']; ?>" id="name" name="name">
                     <span class="invalid-feedback"><?php echo $data['name_error'] ?></span>
                 </div>
                 <div class="form-group">
                     <label for="email" class="form-label">Email: <sup>*</sup></label>
                     <input type="email"
-                           class="form-control form-control-lg <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>"
+                           class="form-control form-control-lg <?php echo (!empty($data['email_error'])) ? 'is-invalid' : ''; ?>"
                            value="<?php echo $data['email']; ?>" id="email" name="email">
                     <span class="invalid-feedback"><?php echo $data['email_error'] ?></span>
                 </div>
                 <div class="form-group">
                     <label for="password" class="form-label">Password: <sup>*</sup></label>
                     <input type="password"
-                           class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>"
+                           class="form-control form-control-lg <?php echo (!empty($data['password_error'])) ? 'is-invalid' : ''; ?>"
                            value="<?php echo $data['password']; ?>" id="password" name="password">
                     <span class="invalid-feedback"><?php echo $data['password_error'] ?></span>
                 </div>
                 <div class="form-group">
                     <label for="confirm_password" class="form-label">Confirm Password: <sup>*</sup></label>
                     <input type="password"
-                           class="form-control form-control-lg <?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : ''; ?>"
+                           class="form-control form-control-lg <?php echo (!empty($data['confirm_password_error'])) ? 'is-invalid' : ''; ?>"
                            value="<?php echo $data['confirm_password']; ?>" id="confirm_password"
                            name="confirm_password">
                     <span class="invalid-feedback"><?php echo $data['confirm_password_error'] ?></span>
