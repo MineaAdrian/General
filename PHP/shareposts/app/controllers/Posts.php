@@ -17,9 +17,7 @@ class Posts extends Controller
         //Get Posts
         $posts = $this->postModel->getPosts();
 
-        $data = [
-            'posts' => $posts
-        ];
+        $data = ['posts' => $posts];
 
         $this->view('posts/index', $data);
     }
@@ -30,13 +28,7 @@ class Posts extends Controller
             //Sanitize POST array
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'title' => trim($_POST['title']),
-                'body' => trim($_POST['body']),
-                'user_id' => $_SESSION['user_id'],
-                'title_error' => '',
-                'body_error' => ''
-            ];
+            $data = ['title' => trim($_POST['title']), 'body' => trim($_POST['body']), 'user_id' => $_SESSION['user_id'], 'title_error' => '', 'body_error' => ''];
 
             //Validate the title
             if (empty($data['title'])) {
@@ -58,10 +50,7 @@ class Posts extends Controller
                 $this->view('/posts/add', $data);
             }
         } else {
-            $data = [
-                'title' => '',
-                'body' => ''
-            ];
+            $data = ['title' => '', 'body' => ''];
             $this->view('posts/add', $data);
         }
     }
@@ -72,14 +61,7 @@ class Posts extends Controller
             //Sanitize POST array
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'id' => $id,
-                'title' => trim($_POST['title']),
-                'body' => trim($_POST['body']),
-                'user_id' => $_SESSION['user_id'],
-                'title_error' => '',
-                'body_error' => ''
-            ];
+            $data = ['id' => $id, 'title' => trim($_POST['title']), 'body' => trim($_POST['body']), 'user_id' => $_SESSION['user_id'], 'title_error' => '', 'body_error' => ''];
 
             //Validate the title
             if (empty($data['title'])) {
@@ -109,11 +91,7 @@ class Posts extends Controller
                 redirect('/posts');
             }
 
-            $data = [
-                'id' => $id,
-                'title' => $post->title,
-                'body' => $post->body
-            ];
+            $data = ['id' => $id, 'title' => $post->title, 'body' => $post->body];
             $this->view('posts/edit', $data);
         }
     }
@@ -123,10 +101,7 @@ class Posts extends Controller
         $post = $this->postModel->getPostById($id);
         $user = $this->userModel->getUserById($post->user_id);
 
-        $data = [
-            'post' => $post,
-            'user' => $user
-        ];
+        $data = ['post' => $post, 'user' => $user];
 
         $this->view('/posts/show', $data);
     }

@@ -21,7 +21,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page"
-                               href="<?php echo URLROOT; ?>/users/logout">Logout</a>
+                               href="<?php echo URLROOT; ?>/users/logout">Logout (<?php echo $_SESSION['user_name']; ?>)</a>
                         </li>
 
                     <?php else : ?>
