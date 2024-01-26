@@ -68,6 +68,21 @@ class Post
         return $row;
     }
 
+    public function getPostsByTitle($searchData)
+    {
+        $this->db->query('SELECT * FROM posts WHERE title LIKE :searchData');
+        //Bind values
+        $this->db->bind(':searchData', '%' . $searchData . '%');
+
+        $results = $this->db->resultSet();
+
+        if ($this->db->rowCount() > 0){
+            return $results;
+        }else{
+            die('No results found');
+        }
+    }
+
     public function deletePost($id)
     {
         $this->db->query('DELETE FROM posts WHERE id = :id');

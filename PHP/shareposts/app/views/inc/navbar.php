@@ -19,9 +19,15 @@
                 <ul class="navbar-nav ml-auto">
                     <?php if (isset($_SESSION['user_id'])) : ?>
 
+                        <form method="post" class="d-flex" action="<?php echo URLROOT; ?>/posts/search">
+                            <button type="submit" class="btn btn-success btn-sm">Search</button>
+                            <input type="text" placeholder="Search post title" name="search" class="form-control">
+                        </form>
+
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page"
-                               href="<?php echo URLROOT; ?>/users/logout">Logout (<?php echo $_SESSION['user_name']; ?>)</a>
+                               href="<?php echo URLROOT; ?>/users/logout">Logout (<?php echo $_SESSION['user_name']; ?>
+                                )</a>
                         </li>
 
                     <?php else : ?>
@@ -35,10 +41,6 @@
                         </li>
                     <?php endif; ?>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </div>

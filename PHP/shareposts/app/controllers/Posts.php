@@ -22,6 +22,20 @@ class Posts extends Controller
         $this->view('posts/index', $data);
     }
 
+    public function search()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $searchData = isset($_POST['search']) ? trim($_POST['search']) : '';
+
+            // Now we can use $searchData in the logic
+            $searchResults = $this->postModel->getPostsByTitle($searchData);
+
+            // Load the search view with the data
+            $data = ['search' => $searchData, 'posts' => $searchResults];
+            $this->view('/posts/search', $data);
+        }
+    }
+
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
