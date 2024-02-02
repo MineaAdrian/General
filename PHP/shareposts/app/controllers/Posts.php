@@ -24,15 +24,32 @@ class Posts extends Controller
 
     public function search()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $searchData = isset($_POST['search']) ? trim($_POST['search']) : '';
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $searchData = isset($_GET['search']) ? trim($_GET['search']) : '';
+            if (!empty($_GET['search'])) {
+                $_SESSION['search_state'] = ['search' => $searchData, 'search_results' => $this->postModel->getPostsByTitle($searchData)];
+                if (!is_bool($_SESSION['search_state']['search_results'])) {
+                    // Load the search view with the data
+                    $data = ['search' => $searchData, 'posts' => $_SESSION['search_state']['search_results']];
+                    $this->view('/posts/search', $data);
+                } else {
+                    flash('post_message', 'No results for this search.(' . $searchData . ') Please try again');
+                    redirect('/posts');
+                }
+            } else {
+                flash('post_message', 'Please insert something to search for');
+                redirect('/posts');
+            }
+        } else {
+            // If no search was performed, clear the search state
+            unset($_SESSION['search_state']);
 
-            // Now we can use $searchData in the logic
-            $searchResults = $this->postModel->getPostsByTitle($searchData);
+            //No search criteria provided
+            flash('info', 'No search criteria provided');
 
-            // Load the search view with the data
-            $data = ['search' => $searchData, 'posts' => $searchResults];
-            $this->view('/posts/search', $data);
+            // Redirect to the index page
+            redirect(URLROOT);
+            exit();
         }
     }
 

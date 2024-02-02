@@ -79,7 +79,7 @@ class Post
         if ($this->db->rowCount() > 0){
             return $results;
         }else{
-            die('No results found');
+            return false;
         }
     }
 

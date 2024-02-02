@@ -1,6 +1,8 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<button onclick="history.back();" class="btn btn-light">
+    <i class="fa fa-backward"> Back</i>
+</button>
 
-<a href="<?php echo URLROOT ?>/posts" class="btn btn-light"><i class="fa fa-backward"> Back</i></a>
 <div class="row mb-3">
     <div class="col-md-6">
         <h1><?php if (isset($data)) {

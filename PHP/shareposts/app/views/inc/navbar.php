@@ -19,7 +19,7 @@
                 <ul class="navbar-nav ml-auto">
                     <?php if (isset($_SESSION['user_id'])) : ?>
 
-                        <form method="post" class="d-flex" action="<?php echo URLROOT; ?>/posts/search">
+                        <form method="get" class="d-flex" action="<?php echo URLROOT; ?>/posts/search">
                             <button type="submit" class="btn btn-success btn-sm">Search</button>
                             <input type="text" placeholder="Search post title" name="search" class="form-control">
                         </form>
