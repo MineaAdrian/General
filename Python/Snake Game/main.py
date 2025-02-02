@@ -38,12 +38,12 @@ while game_is_on:
 
     # Detect if the snake collides with margin
     if snake.head.xcor() > 290 or snake.head.xcor() < - 290 or snake.head.ycor() > 290 or snake.head.ycor() < - 290:
-        print("Game Over!")
+        scoreboard.set_game_over()
         game_is_on = False
 
     # Detect if the snake collides with its own body
     if snake.check_collision():
-        print("Game Over!")
+        scoreboard.set_game_over()
         game_is_on = False
 
 screen.exitonclick()

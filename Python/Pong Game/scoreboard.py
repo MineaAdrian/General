@@ -8,18 +8,14 @@ class Scoreboard(Turtle):
 
     def __init__(self):
         super().__init__()
+        self.ht()
         self.penup()
         self.speed("fastest")
         self.pencolor("white")
         self.pensize(10)
         self.goto(0, 270)
 
-    def update_score(self, score):
+    def update_score(self, l_paddle_score, r_paddle_score):
         self.clear()
-        self.write(arg=("Score : " + str(score)), move=False, align=ALIGNMENT, font=FONT)
-        self.ht()
-
-    def set_game_over(self):
-        self.goto(0, 0)
-        self.write(arg="Game Over.", move=False, align=ALIGNMENT, font=FONT)
+        self.write(arg=(str(l_paddle_score) + " : " + str(r_paddle_score)), move=False, align=ALIGNMENT, font=FONT)
         self.ht()
