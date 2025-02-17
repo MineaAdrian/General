@@ -13,19 +13,12 @@ counter = 0
 
 data = pandas.read_csv("50_states.csv")
 guessed_states = []
-states_to_learn = []
 keep_guessing = True
 
 while keep_guessing:
     answer_state = (screen.textinput(title=f"{counter}/50 States Correct", prompt="What`s another state`s name?"))
     if answer_state.lower() == "exit":
-        all_states = data.to_dict()
-        counter = 0
-        for state in range(0, 50):
-            if all_states["state"][state] in guessed_states:
-                pass
-            else:
-                states_to_learn.append(all_states["state"][state])
+        states_to_learn = [item for item in data.state[range(0, 50)] if item not in guessed_states]
 
         output = pandas.DataFrame({"Index": range(1, len(states_to_learn) + 1), "State": states_to_learn})
         output.to_csv("states_to_learn.csv", index=False)
