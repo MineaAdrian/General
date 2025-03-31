@@ -1,3 +1,4 @@
+import json
 from tkinter import *
 from tkinter import messagebox
 from passwordGenerator import *
@@ -16,18 +17,54 @@ def generate():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save():
-    line_to_save = website_entry.get() + " | " + username_entry.get() + " | " + password_entry.get()
     if website_entry.get() == "" or username_entry.get() == "" or password_entry.get() == "":
         messagebox.showinfo(title="Ooops:",
                             message=f"Please don`t leave any fields empty!")
     else:
-        is_ok = messagebox.askokcancel(title="These are the details entered:",
-                                       message=f"{line_to_save} \nShould we add them?")
-        if is_ok:
-            with open("save.txt", "a") as data_file:
-                data_file.write(line_to_save + "\n")
+        new_data = {website_entry.get(): {
+            "email": username_entry.get(),
+            "password": password_entry.get()
+        }}
+        try:
+            with open("data.json", "r") as data_file:
+                # json.dump(new_data, data_file, indent=4)
+                data = json.load(data_file)
+
+        except FileNotFoundError:
+            with open("data.json", "w") as data_file:
+                json.dump(new_data, data_file, indent=4)
+        else:
+            data.update(new_data)
+
+            with open("data.json", "w") as data_file:
+                json.dump(data, data_file, indent=4)
+        finally:
             website_entry.delete(0, 'end')
             password_entry.delete(0, 'end')
+
+
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+
+def find_password():
+    website = website_entry.get()
+    try:
+        with open("data.json", "r") as data_file:
+            # json.dump(new_data, data_file, indent=4)
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error:",
+                            message=f"No Data File Found.")
+    else:
+        if website in data:
+            messagebox.showinfo(title=f"{website}:",
+                                message=f"Email: {data[website]["email"]}\n"
+                                        f"Password: {data[website]["password"]}")
+            pyperclip.copy(data[website]["password"])
+        else:
+            messagebox.showinfo(title="Error:",
+                                message=f"Credentials not found for {website}.")
+    finally:
+        website_entry.delete(0, 'end')
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -49,8 +86,8 @@ password_label = Label(text="Password:", pady=3)
 password_label.grid(column=0, row=3)
 
 # Entry
-website_entry = Entry(width=52)
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry = Entry(width=34)
+website_entry.grid(column=1, row=1)
 website_entry.focus()
 username_entry = Entry(width=52)
 username_entry.grid(column=1, row=2, columnspan=2)
@@ -59,6 +96,8 @@ password_entry = Entry(width=34)
 password_entry.grid(column=1, row=3)
 
 # Buttons
+search_button = Button(text="Search", width=14, command=find_password)
+search_button.grid(column=2, row=1)
 generate_password_button = Button(text="Generate Password", width=14, command=generate)
 generate_password_button.grid(column=2, row=3)
 add_button = Button(text="Add", width=44, command=save)
